@@ -4,9 +4,9 @@ import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useEffect, useRef } from 'react';
 import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-import * as searchService from '~/services/searchService'
+import * as searchService from '~/services/searchService';
 import { useDebounce } from '~/hooks';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
@@ -18,9 +18,9 @@ const cx = classNames.bind(styles);
 function Search() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const [showResult, setShowResult] = useState(true);
+  const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
-  const debounced = useDebounce(searchValue, 500);
+  const debouncedValue = useDebounce(searchValue, 500);
 
   const inputRef = useRef();
 
@@ -35,7 +35,7 @@ function Search() {
   };
 
   useEffect(() => {
-    if (!debounced.trim()) {
+    if (!debouncedValue.trim()) {
       setSearchResult([]);
       return;
     }
@@ -43,23 +43,23 @@ function Search() {
     setLoading(true);
 
     const fetchApi = async () => {
-      setLoading(true)
+      setLoading(true);
 
-      const result = await searchService.search(debounced)
-      setSearchResult(result)
+      const result = await searchService.search(debouncedValue);
+      setSearchResult(result);
 
-      setLoading(false)
-    }
+      setLoading(false);
+    };
 
-    fetchApi()
-  }, [debounced]);
+    fetchApi();
+  }, [debouncedValue]);
 
   const handleChange = (e) => {
-    const searchValue = e.target.value
+    const searchValue = e.target.value;
     if (!searchValue.startsWith(' ')) {
       setSearchValue(searchValue);
     }
-  }
+  };
 
   return (
     // Fix Tippy.js warning Using a wrapper <div> tag around the reference element solves this by creating a new parentNode context.
@@ -105,7 +105,7 @@ function Search() {
 }
 
 AccountItem.propTypes = {
-  data: PropTypes.object
-}
+  data: PropTypes.object,
+};
 
 export default Search;

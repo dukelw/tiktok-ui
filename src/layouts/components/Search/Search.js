@@ -17,6 +17,7 @@ const cx = classNames.bind(styles);
 
 function Search() {
   const [searchValue, setSearchValue] = useState('');
+  const [searchDisplay, setSearchDisplay] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -61,45 +62,54 @@ function Search() {
     }
   };
 
+  const handleDisplaySearch = (e) => {
+    setSearchDisplay(!searchDisplay);
+  };
+
   return (
     // Fix Tippy.js warning Using a wrapper <div> tag around the reference element solves this by creating a new parentNode context.
     <div>
-      <HeadlessTippy
-        interactive
-        visible={showResult && searchResult.length > 0}
-        placement="bottom-end"
-        render={(attrs) => (
-          <div className={cx('search-result')} tabIndex={-1} {...attrs}>
-            <PopperWrapper>
-              <h4 className={cx('search-title')}>Account</h4>
-              {searchResult.map((result) => {
-                return <AccountItem key={result.id} data={result}></AccountItem>;
-              })}
-            </PopperWrapper>
-          </div>
-        )}
-        onClickOutside={handleHideResult}
-      >
-        <div className={cx('search')}>
-          <input
-            ref={inputRef}
-            value={searchValue}
-            type="text"
-            placeholder="Search account and videos"
-            onChange={handleChange}
-            onFocus={() => setShowResult(true)}
-          />
-          {!!searchValue && !loading && (
-            <button className={cx('clear')} onClick={handleClear}>
-              <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
+      <div className={cx('search-toggle')} onClick={(e) => handleDisplaySearch(e)}>
+        <SearchIcon display={!searchDisplay === false ? 'none' : 'block'} className={cx('search-toogle-btn')} />
+      </div>
+      {searchDisplay && (
+        <HeadlessTippy
+          interactive
+          visible={showResult && searchResult.length > 0}
+          placement="bottom-end"
+          render={(attrs) => (
+            <div className={cx('search-result')} tabIndex={-1} {...attrs}>
+              <PopperWrapper>
+                <h4 className={cx('search-title')}>Account</h4>
+                {searchResult.map((result) => {
+                  return <AccountItem key={result.id} data={result}></AccountItem>;
+                })}
+              </PopperWrapper>
+            </div>
           )}
-          {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-          <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
-            <SearchIcon />
-          </button>
-        </div>
-      </HeadlessTippy>
+          onClickOutside={handleHideResult}
+        >
+          <div className={cx('search')}>
+            <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
+              <SearchIcon />
+            </button>
+            <input
+              ref={inputRef}
+              value={searchValue}
+              type="text"
+              placeholder="Search product..."
+              onChange={handleChange}
+              onFocus={() => setShowResult(true)}
+            />
+            {!!searchValue && !loading && (
+              <button className={cx('clear')} onClick={handleClear}>
+                <FontAwesomeIcon icon={faCircleXmark} />
+              </button>
+            )}
+            {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+          </div>
+        </HeadlessTippy>
+      )}
     </div>
   );
 }

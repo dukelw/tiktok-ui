@@ -1,0 +1,32 @@
+.wrapper:first-child {
+  margin: 40px 0 0 0;
+}
+
+.inner {
+  font-size: 1.6rem;
+  border: none;
+  padding: 0px !important;
+  background-color: var(--black);
+}
+
+.list {
+  font-weight: 600;
+  color: var(--white);
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.item {
+}
+
+.item.active {
+  background-color: var(--blue);
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.item:hover {
+  background-color: #ddd;
+  transition: background-color 0.3s;
+}

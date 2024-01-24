@@ -1,0 +1,50 @@
+.wrapper {
+  color: var(--white);
+  width: 100%;
+  display: flex;
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/526/43/635/komi-san-wa-comyushou-desu-komi-shouko-anime-girls-hd-wallpaper-preview.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 526px;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 60px;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    padding: 40px;
+    border-radius: 20px;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        text-transform: capitalize;
+        font-size: 3.6rem;
+        font-weight: 600;
+      }
+
+      .content {
+        font-size: 1.8rem;
+        margin: 12px 0 36px 0;
+      }
+    }
+
+    .button {
+      max-width: 160px;
+    }
+  }
+}
+
+.left {
+  flex: 1;
+}

@@ -1,0 +1,43 @@
+.wrapper {
+  margin: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tools {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.actions {
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.filter,
+.sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 12px;
+
+  p {
+    margin: 0;
+  }
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  background-color: var(--black);
+}

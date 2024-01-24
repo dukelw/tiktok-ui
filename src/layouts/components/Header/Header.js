@@ -11,10 +11,12 @@ import Image from '~/components/Image';
 import Menu from '~/components/Popper/Menu';
 import Button from '~/components/Button';
 import styles from './Header.module.scss';
-import images from '~/assets/images';
 import {
-  MessageIcon,
-  UploadIcon,
+  LogoIcon,
+  ListIcon,
+  // UploadIcon,
+  FavouriteIcon,
+  CartIcon,
   ProfileIcon,
   SettingsIcon,
   LogoutIcon,
@@ -23,10 +25,38 @@ import {
   LanguageIcon,
   CoinIcon,
   InboxIcon,
+  NotificationIcon,
 } from '~/components/Icons';
 import Search from '../Search';
 
 const cx = classNames.bind(styles);
+
+const NAVIGATION_ITEMS = [
+  {
+    title: 'Best sellers',
+    to: '/best-seller',
+  },
+  {
+    title: 'New releases',
+    to: '/new-releases',
+  },
+  {
+    title: "Today's deals",
+    to: '/deals',
+  },
+  {
+    title: 'Products',
+    to: '/products',
+  },
+  {
+    title: 'Discount codes',
+    to: '/discount-codes',
+  },
+  {
+    title: 'Customer services',
+    to: '/customer services',
+  },
+];
 
 const MENU_ITEMS = [
   {
@@ -93,31 +123,46 @@ function Header() {
 
   return (
     <header className={cx('wrapper')}>
+      {/* Logo */}
+      <Link to={config.routes.home} className={cx('logo-link')}>
+        <div className={cx('logo')}>
+          <LogoIcon />
+        </div>
+      </Link>
+      {/* Navigation */}
       <div className={cx('inner')}>
-        <Link to={config.routes.home} className={cx('logo-link')}>
-          <img src={images.logo} alt="TikTok" />
-        </Link>
-
+        <button className={cx('action-btn')}>
+          <ListIcon /> <p className={cx('navigation-item')}>All</p>
+        </button>
         <Search />
-
+        <ul className={cx('navigation-list')}>
+          {NAVIGATION_ITEMS.map((item, index) => {
+            return (
+              <li key={index} className={cx('navigation-item')}>
+                <Link to={item.to} className={cx('navigation-link')}>
+                  {item.title}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
         <div className={cx('actions')}>
           {currentUser ? (
             <Fragment>
               <div className={cx('current-user')}>
-                <Tippy content="Upload video" placement="bottom" trigger="click" delay={[0, 200]}>
+                <Tippy content="Cart" placement="bottom" trigger="click" delay={[0, 200]}>
                   <button className={cx('action-btn')}>
-                    <UploadIcon />
+                    <CartIcon />
                   </button>
                 </Tippy>
-                <Tippy content="Message" placement="bottom" trigger="click" delay={[0, 200]}>
+                <Tippy content="Favourite" placement="bottom" trigger="click" delay={[0, 200]}>
                   <button className={cx('action-btn')}>
-                    <MessageIcon />
+                    <FavouriteIcon />
                   </button>
                 </Tippy>
-                <Tippy content="Inbox" placement="bottom" trigger="click" delay={[0, 200]}>
+                <Tippy content="Notification" placement="bottom" trigger="click" delay={[0, 200]}>
                   <button className={cx('action-btn')}>
-                    <InboxIcon />
-                    <span className={cx('num-of-inbox')}>22</span>
+                    <NotificationIcon />
                   </button>
                 </Tippy>
               </div>

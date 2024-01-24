@@ -1,6 +1,19 @@
+.hidden {
+  display: none;
+}
+
 .search,
 .search-result {
   width: 360px;
+}
+
+.search-toggle {
+  display: block;
+  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
 }
 
 .search {
@@ -26,16 +39,6 @@
 
   input:not(:placeholder-shown) ~ .search-btn {
     color: rgba(22, 24, 35, 0.75);
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 9px;
-    right: var(--search-button-width);
-    width: 1px;
-    height: calc(var(--search-height) - var(--search-top-spacer) * 2);
-    background-color: rgba(22, 24, 35, 0.12);
   }
 
   &:focus-within {
